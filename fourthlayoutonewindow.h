@@ -29,6 +29,7 @@ private:
     ServoUtility *servoUtilityPtr;
     QWidget* parent;
     int firstReset = 1;
+    int dxl_for_one[NUM_OF_DXL_4/2] = { DXL5_ID, DXL9_ID, DXL7_ID };
 };
 
 #endif // FOURTHLAYOUTONEWINDOW_H
