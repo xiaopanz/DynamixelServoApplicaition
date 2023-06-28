@@ -21,21 +21,21 @@ void FourthLayoutOneWindow::on_resetButton_clicked()
     ui->quitButton->setEnabled(false);
     ui->resetButton->setEnabled(false);
 
-    for (int i = 0; i < NUM_OF_DXL_1; i++) {
-        servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_1[i]);
-        servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_1[i], 4);
-        servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_1[i]);
-        servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_1[i], DXL_VELOCITY_VALUE);
+    for (int i = 0; i < NUM_OF_DXL_4/2; i++) {
+        servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_4[i]);
+        servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_4[i], 4);
+        servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_4[i]);
+        servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_4[i], DXL_VELOCITY_VALUE);
     }
     qDebug() << "Resetting servos positions...";
-    servoUtilityPtr->resetPositionCustomFirstLayout(servoUtilityPtr->dxl_ids_1, 2048, firstReset, 0);
+    servoUtilityPtr->resetPositionCustomFirstLayout(dxl_for_one, 2048, firstReset, 0);
     firstReset = 0;
     qDebug() << "Servos positions have been reset!";
-    for (int i = 0; i < NUM_OF_DXL_1; i++) {
-        servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_1[i]);
-        servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_1[i], 3);
-        servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_1[i]);
-        servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_1[i], DXL_VELOCITY_VALUE);
+    for (int i = 0; i < NUM_OF_DXL_4/2; i++) {
+        servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_4[i]);
+        servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_4[i], 3);
+        servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_4[i]);
+        servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_4[i], DXL_VELOCITY_VALUE);
     }
 
     ui->startButton->setEnabled(true);
@@ -51,14 +51,13 @@ void FourthLayoutOneWindow::on_startButton_clicked()
         dxls_present_position[i] = 0;
         dxls_goal_position[i] = 2048;
     }
-    int dxl_for_one[NUM_OF_DXL_4/2] = { DXL5_ID, DXL9_ID, DXL7_ID };
-    std::thread thread_sync_read(&ServoUtility::syncReadPosition, servoUtilityPtr, NUM_OF_DXL_1/2, dxl_for_one, dxls_present_position, dxls_goal_position);
-    std::thread thread_sync_write(&ServoUtility::syncWritePosition, servoUtilityPtr, NUM_OF_DXL_1/2, dxl_for_one, dxls_goal_position);
+    std::thread thread_sync_read(&ServoUtility::syncReadPosition, servoUtilityPtr, NUM_OF_DXL_4/2, dxl_for_one, dxls_present_position, dxls_goal_position);
+    std::thread thread_sync_write(&ServoUtility::syncWritePosition, servoUtilityPtr, NUM_OF_DXL_4/2, dxl_for_one, dxls_goal_position);
     thread_sync_write.join();
     thread_sync_read.join();
     // Change servos velocity
     for (int i = 0; i < NUM_OF_DXL_4/2; i++) {
-        servoUtilityPtr->setVelocity(dxl_for_one[i], DXL_VELOCITY_VALUE);
+        servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_4[i], DXL_VELOCITY_VALUE);
     }
     ui->resetButton->setEnabled(true);
     ui->quitButton->setEnabled(true);
@@ -71,14 +70,14 @@ void FourthLayoutOneWindow::on_quitButton_clicked()
     ui->startButton->setEnabled(false);
     if (firstReset == 1) {
         // Change servos velocity
-        for (int i = 0; i < NUM_OF_DXL_1; i++) {
+        for (int i = 0; i < NUM_OF_DXL_4; i++) {
             servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_1[i], DXL_VELOCITY_VALUE);
         }
         qDebug() << "Resetting servos positions...";
         servoUtilityPtr->resetPositionFirstLayout(servoUtilityPtr->dxl_ids_1, 0);
         qDebug() << "Servos positions have been reset!";
     } else {
-        for (int i = 0; i < NUM_OF_DXL_1; i++) {
+        for (int i = 0; i < NUM_OF_DXL_4; i++) {
             servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_1[i]);
             servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_1[i], 4);
             servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_1[i]);
@@ -88,7 +87,7 @@ void FourthLayoutOneWindow::on_quitButton_clicked()
         servoUtilityPtr->quitCustomFirstLayout(servoUtilityPtr->dxl_ids_1, 0);
         firstReset = 1;
         qDebug() << "Servos positions have been reset!";
-        for (int i = 0; i < NUM_OF_DXL_1; i++) {
+        for (int i = 0; i < NUM_OF_DXL_4; i++) {
             servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_1[i]);
             servoUtilityPtr->setOperatingMode(servoUtilityPtr->dxl_ids_1[i], 3);
             servoUtilityPtr->enableTorque(servoUtilityPtr->dxl_ids_1[i]);
