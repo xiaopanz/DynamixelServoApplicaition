@@ -123,7 +123,7 @@ void SecondLayoutContinuousSkinSlipWindow::on_quitButton_clicked()
             servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_2[i], DXL_VELOCITY_VALUE);
         }
         qDebug() << "Resetting servos positions...";
-        servoUtilityPtr->resetPositionSecondLayout(servoUtilityPtr->dxl_ids_2, 0);
+        servoUtilityPtr->resetPosition(servoUtilityPtr->dxl_ids_2, NUM_OF_DXL_2, 0);
         qDebug() << "Servos positions have been reset!";
     } else {
         for (int i = 0; i < NUM_OF_DXL_2; i++) {

@@ -42,7 +42,7 @@ void FirstLayoutSkinSlipWindow::on_resetButton_clicked()
         servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_1[i], DXL_VELOCITY_VALUE);
     }
     qDebug() << "Resetting servos positions...";
-    servoUtilityPtr->resetPositionFirstLayout(servoUtilityPtr->dxl_ids_1, ui->angleSlider->value() - 4096);
+    servoUtilityPtr->resetPosition(servoUtilityPtr->dxl_ids_1, NUM_OF_DXL_1, ui->angleSlider->value() - 4096);
     qDebug() << "Servos positions have been reset!";
     for (int i = 0; i < NUM_OF_DXL_1; i++) {
         servoUtilityPtr->disableTorque(servoUtilityPtr->dxl_ids_1[i]);
@@ -88,7 +88,7 @@ void FirstLayoutSkinSlipWindow::on_quitButton_clicked()
         servoUtilityPtr->setVelocity(servoUtilityPtr->dxl_ids_1[i], DXL_VELOCITY_VALUE);
     }
     qDebug() << "Resetting servos positions...";
-    servoUtilityPtr->resetPositionFirstLayout(servoUtilityPtr->dxl_ids_1, 0);
+    servoUtilityPtr->resetPosition(servoUtilityPtr->dxl_ids_1, NUM_OF_DXL_1, 0);
     qDebug() << "Servos positions have been reset!";
     ui->angleSlider->setValue(2600);
     ui->velocitySlider->setValue(100);

@@ -70,13 +70,12 @@ public:
     void syncWritePosition(int dxl_num, int dxl_ids[], int dxls_goal_position[]);
     void writePositionWithDelay(int dxl_id, int dxl_goal_position, int delay);
     void syncWritePositionWithDelay(int dxl_num, int dxl_ids[], int dxl_goal_position, int delay);
-    void resetPositionFirstLayout(int dxl_ids[], int dxl_goal_position);
-    void resetPositionSecondLayout(int dxl_ids[], int dxl_goal_position);
-    void resetPositionThirdLayout(int dxl_ids[], int dxl_goal_position);
+    void resetPosition(int dxl_ids[], int dxl_array_size, int dxl_goal_position);
     void setOperatingMode(int dxl_id, uint8_t operating_mode);
     void resetPositionCustomFirstLayout(int dxl_ids[], int dxl_goal_position, int firstReset, int flag);
     void resetPositionCustomSecondLayout(int dxl_ids[], int dxl_goal_position, int firstReset);
     void resetPositionCustomThirdLayout(int dxl_ids[], int dxl_goal_position, int firstReset, int flag);
+    void resetPositionOne(int dxl_ids[]);
     void quitCustomFirstLayout(int dxl_ids[], int flag);
     void quitCustomSecondLayout(int dxl_ids[]);
     void quitCustomThirdLayout(int dxl_ids[], int flag);

@@ -41,3 +41,11 @@ void MainWindow::on_thirdLayoutButton_clicked()
     thirdLayoutWindow->show();
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    this->hide();
+    fourthLayoutWindow = new FourthLayoutWindow(this);
+    fourthLayoutWindow->show();
+}
+

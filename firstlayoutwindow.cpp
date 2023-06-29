@@ -42,7 +42,7 @@ FirstLayoutWindow::FirstLayoutWindow(QWidget *parent) :
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionFirstLayout(dxl_ids_1, 0);
+    servoUtility.resetPosition(dxl_ids_1, NUM_OF_DXL_1, 0);
     qDebug() << "Servos positions have been reset!";
 
 }
@@ -58,7 +58,7 @@ FirstLayoutWindow::~FirstLayoutWindow()
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionFirstLayout(dxl_ids_1, 0);
+    servoUtility.resetPosition(dxl_ids_1, NUM_OF_DXL_1, 0);
     qDebug() << "Servos positions have been reset!";
 
     for (int i = 0; i < NUM_OF_DXL_1; i++) {

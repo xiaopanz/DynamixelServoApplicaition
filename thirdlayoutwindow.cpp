@@ -39,7 +39,7 @@ ThirdLayoutWindow::ThirdLayoutWindow(QWidget *parent) :
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionThirdLayout(dxl_ids_3, 0);
+    servoUtility.resetPosition(dxl_ids_3, NUM_OF_DXL_3, 0);
     qDebug() << "Servos positions have been reset!";
 }
 
@@ -54,7 +54,7 @@ ThirdLayoutWindow::~ThirdLayoutWindow()
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionThirdLayout(dxl_ids_3, 0);
+    servoUtility.resetPosition(dxl_ids_3, NUM_OF_DXL_3, 0);
     qDebug() << "Servos positions have been reset!";
 
     for (int i = 0; i < NUM_OF_DXL_3; i++) {

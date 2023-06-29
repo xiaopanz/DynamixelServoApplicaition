@@ -5,6 +5,7 @@
 #include "firstlayoutwindow.h"
 #include "secondlayoutwindow.h"
 #include "thirdlayoutwindow.h"
+#include "fourthlayoutwindow.h"
 
 class FirstLayoutWindow;
 class SecondLayoutWindow;
@@ -29,10 +30,13 @@ private slots:
 
     void on_thirdLayoutButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     FirstLayoutWindow *firstLayoutWindow;
     SecondLayoutWindow *secondLayoutWindow;
     ThirdLayoutWindow *thirdLayoutWindow;
+    FourthLayoutWindow *fourthLayoutWindow;
 };
 #endif // MAINWINDOW_H

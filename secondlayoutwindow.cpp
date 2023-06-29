@@ -40,7 +40,7 @@ SecondLayoutWindow::SecondLayoutWindow(QWidget *parent) :
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionSecondLayout(dxl_ids_2, 0);
+    servoUtility.resetPosition(dxl_ids_2, NUM_OF_DXL_2, 0);
     qDebug() << "Servos positions have been reset!";
 
 }
@@ -56,7 +56,7 @@ SecondLayoutWindow::~SecondLayoutWindow()
 
     // Reset servos initial position
     qDebug() << "Resetting servos positions...";
-    servoUtility.resetPositionSecondLayout(dxl_ids_2, 0);
+    servoUtility.resetPosition(dxl_ids_2, NUM_OF_DXL_2, 0);
     qDebug() << "Servos positions have been reset!";
 
     for (int i = 0; i < NUM_OF_DXL_2; i++) {

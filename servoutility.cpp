@@ -262,43 +262,19 @@ void ServoUtility::syncWritePositionWithDelay(int dxl_num, int dxl_ids[], int dx
     }
 }
 
-void ServoUtility::resetPositionFirstLayout(int dxl_ids[], int dxl_goal_position) {
-    int32_t dxls_present_position[NUM_OF_DXL_1];
-    int dxls_goal_position[NUM_OF_DXL_1];
-    for (int i = 0; i < NUM_OF_DXL_1; i++) {
+void ServoUtility::resetPosition(int dxl_ids[], int dxl_array_size, int dxl_goal_position) {
+    int* dxls_present_position = new int[dxl_array_size];
+    int* dxls_goal_position = new int[dxl_array_size];
+    for (int i = 0; i < dxl_array_size; i++) {
         dxls_goal_position[i] = dxl_goal_position;
         dxls_present_position[i] = 0;
     }
-    std::thread thread_sync_read(&ServoUtility::syncReadPosition, this, NUM_OF_DXL_1, dxl_ids, dxls_present_position, dxls_goal_position);
-    std::thread thread_sync_write(&ServoUtility::syncWritePosition, this, NUM_OF_DXL_1, dxl_ids, dxls_goal_position);
+    std::thread thread_sync_read(&ServoUtility::syncReadPosition, this, dxl_array_size, dxl_ids, dxls_present_position, dxls_goal_position);
+    std::thread thread_sync_write(&ServoUtility::syncWritePosition, this, dxl_array_size, dxl_ids, dxls_goal_position);
     thread_sync_write.join();
     thread_sync_read.join();
-}
-
-void ServoUtility::resetPositionSecondLayout(int dxl_ids[], int dxl_goal_position){
-    int32_t dxls_present_position[NUM_OF_DXL_2];
-    int dxls_goal_position[NUM_OF_DXL_2];
-    for (int i = 0; i < NUM_OF_DXL_2; i++) {
-        dxls_goal_position[i] = dxl_goal_position;
-        dxls_present_position[i] = 0;
-    }
-    std::thread thread_sync_read(&ServoUtility::syncReadPosition, this, NUM_OF_DXL_2, dxl_ids, dxls_present_position, dxls_goal_position);
-    std::thread thread_sync_write(&ServoUtility::syncWritePosition, this, NUM_OF_DXL_2, dxl_ids, dxls_goal_position);
-    thread_sync_write.join();
-    thread_sync_read.join();
-}
-
-void ServoUtility::resetPositionThirdLayout(int dxl_ids[], int dxl_goal_position){
-    int32_t dxls_present_position[NUM_OF_DXL_3];
-    int dxls_goal_position[NUM_OF_DXL_3];
-    for (int i = 0; i < NUM_OF_DXL_3; i++) {
-        dxls_goal_position[i] = dxl_goal_position;
-        dxls_present_position[i] = 0;
-    }
-    std::thread thread_sync_read(&ServoUtility::syncReadPosition, this, NUM_OF_DXL_3, dxl_ids, dxls_present_position, dxls_goal_position);
-    std::thread thread_sync_write(&ServoUtility::syncWritePosition, this, NUM_OF_DXL_3, dxl_ids, dxls_goal_position);
-    thread_sync_write.join();
-    thread_sync_read.join();
+    delete[] dxls_present_position;
+    delete[] dxls_goal_position;
 }
 
 void ServoUtility::resetPositionCustomFirstLayout(int dxl_ids[], int dxl_goal_position, int firstReset, int flag) {
@@ -416,6 +392,22 @@ void ServoUtility::resetPositionCustomThirdLayout(int dxl_ids[], int dxl_goal_po
     thread_sync_read.join();
 }
 
+void ServoUtility::resetPositionOne(int dxl_ids[]) {
+    int dxls_present_position[NUM_OF_DXL_4/2];
+    int dxls_goal_position[NUM_OF_DXL_4/2];
+    for (int i = 0; i < NUM_OF_DXL_4/2; i++) {
+        dxls_present_position[i] = 0;
+        if (i % 2 == 0) {
+            dxls_goal_position[i] = 1024;
+        } else {
+            dxls_goal_position[i] = 3072;
+        }
+    }
+    std::thread thread_sync_read(&ServoUtility::syncReadPosition, this, NUM_OF_DXL_4/2, dxl_ids, dxls_present_position, dxls_goal_position);
+    std::thread thread_sync_write(&ServoUtility::syncWritePosition, this, NUM_OF_DXL_4/2, dxl_ids, dxls_goal_position);
+
+}
+
 void ServoUtility::quitCustomFirstLayout(int dxl_ids[], int flag) {
     int32_t dxls_present_position[NUM_OF_DXL_1];
     int dxls_goal_position[NUM_OF_DXL_1];
@@ -493,4 +485,3 @@ void ServoUtility::quitCustomThirdLayout(int dxl_ids[], int flag){
     thread_sync_write.join();
     thread_sync_read.join();
 }
-
